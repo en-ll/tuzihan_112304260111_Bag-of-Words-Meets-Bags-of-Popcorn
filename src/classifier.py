@@ -1,4 +1,5 @@
 from sklearn.ensemble import RandomForestClassifier
+from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
 import numpy as np
@@ -7,13 +8,27 @@ import numpy as np
 def train_random_forest(X_train, y_train):
     print("训练随机森林分类器...")
     clf = RandomForestClassifier(
-        n_estimators=100,  # 树的数量
-        max_depth=10,      # 树的最大深度
+        n_estimators=200,  # 增加树的数量
+        max_depth=20,      # 增加树的最大深度
         random_state=42,   # 随机种子
         n_jobs=-1          # 并行处理
     )
     clf.fit(X_train, y_train)
     print("随机森林分类器训练完成。")
+    return clf
+
+# 训练XGBoost分类器
+def train_xgboost(X_train, y_train):
+    print("训练XGBoost分类器...")
+    clf = XGBClassifier(
+        n_estimators=200,  # 树的数量
+        max_depth=10,      # 树的最大深度
+        learning_rate=0.1, # 学习率
+        random_state=42,   # 随机种子
+        n_jobs=-1          # 并行处理
+    )
+    clf.fit(X_train, y_train)
+    print("XGBoost分类器训练完成。")
     return clf
 
 # 模型评估
