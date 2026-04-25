@@ -21,11 +21,11 @@ def train_random_forest(X_train, y_train):
 def train_xgboost(X_train, y_train):
     print("训练XGBoost分类器...")
     clf = XGBClassifier(
-        n_estimators=300,  # 增加树的数量
-        max_depth=12,      # 增加树的最大深度
-        learning_rate=0.05, # 降低学习率
-        subsample=0.8,     # 子样本比例
-        colsample_bytree=0.8, # 每棵树使用的特征比例
+        n_estimators=350,  # 最佳参数
+        max_depth=13,      # 最佳参数
+        learning_rate=0.05, # 最佳参数
+        subsample=0.8,     # 最佳参数
+        colsample_bytree=0.8, # 最佳参数
         random_state=42,   # 随机种子
         n_jobs=-1          # 并行处理
     )
