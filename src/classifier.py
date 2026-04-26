@@ -1,5 +1,6 @@
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
 import numpy as np
@@ -31,6 +32,18 @@ def train_xgboost(X_train, y_train):
     )
     clf.fit(X_train, y_train)
     print("XGBoost分类器训练完成。")
+    return clf
+
+# 训练逻辑回归分类器
+def train_logistic_regression(X_train, y_train):
+    print("训练逻辑回归分类器...")
+    clf = LogisticRegression(
+        C=1.0,             # 正则化强度
+        random_state=42,   # 随机种子
+        n_jobs=-1          # 并行处理
+    )
+    clf.fit(X_train, y_train)
+    print("逻辑回归分类器训练完成。")
     return clf
 
 # 模型评估

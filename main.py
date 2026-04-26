@@ -1,7 +1,7 @@
 import pandas as pd
 from src.word2vec import load_data, load_word2vec
 from src.sentence_vector import get_sentence_vectors_avg
-from src.classifier import train_xgboost, evaluate_model, predict
+from src.classifier import train_logistic_regression, evaluate_model, predict
 from sklearn.model_selection import train_test_split
 
 # 主函数
@@ -45,8 +45,8 @@ def main():
     # 4. 划分训练集和验证集
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
     
-    # 5. 训练XGBoost分类器
-    clf = train_xgboost(X_train, y_train)
+    # 5. 训练逻辑回归分类器
+    clf = train_logistic_regression(X_train, y_train)
     
     # 6. 评估模型
     auc = evaluate_model(clf, X_val, y_val)

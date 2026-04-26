@@ -9,13 +9,17 @@ def preprocess_text(text):
     # 去除HTML标签
     text = re.sub(r'<[^>]+>', '', text)
     
+    # 保留否定词，将否定词与后面的词组合
+    # 例如：将 "not good" 转换为 "not_good"
+    text = re.sub(r'\b(not)\s+(\w+)\b', r'\1_\2', text)
+    
     # 去除标点和特殊符号
-    text = re.sub(r'[^a-zA-Z\s]', '', text)
+    text = re.sub(r'[^a-zA-Z\s_]', '', text)
     
-    # 分词（使用正则表达式）
-    tokens = re.findall(r'\b\w+\b', text)
+    # 分词（使用正则表达式，支持短语模式）
+    tokens = re.findall(r'\b\w+(?:_\w+)*\b', text)
     
-    # 去停用词（使用内置的停用词列表）
+    # 去停用词（使用内置的停用词列表，移除否定词）
     stop_words = set([
         'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 'your', 'yours',
         'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', 'her', 'hers',
@@ -27,7 +31,7 @@ def preprocess_text(text):
         'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down',
         'in', 'out', 'on', 'off', 'over', 'under', 'again', 'further', 'then', 'once',
         'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 'few',
-        'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same',
+        'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'only', 'own', 'same',
         'so', 'than', 'too', 'very', 's', 't', 'can', 'will', 'just', 'don', 'should', 'now'
     ])
     tokens = [word for word in tokens if word not in stop_words]
